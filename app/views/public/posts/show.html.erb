@@ -1,0 +1,57 @@
+<div class="container">
+  <div class="row mt-5">
+    <h4>投稿詳細</h4>
+  </div>
+
+  <div class="row mt-3">
+    <div class="col-5">
+    </div>
+
+    <div class="col-7">
+      <table class="table table-borderless">
+        <tbody>
+          <tr>
+            <th>都道府県</th>
+            <td><%= @post.prefecture&.name %></td>
+          </tr>
+          <tr>
+            <th>食べ物名</th>
+            <td><%= @post.food_name %></td>
+          </tr>
+          <tr>
+            <th>食べ物説明</th>
+            <td><%= @post.introduction %></td>
+          </tr>
+          <tr>
+            <th>タグ</th>
+            <td>
+              <% @post_tags.each do |tag| %>
+                <%= tag.name %>
+              <% end %>
+            </td>
+          </tr>
+          <tr>
+            <th>いいね数</th>
+            <td id="favorite_buttons_<%= @post.id %>">
+              <%= render "public/favorites/btn", post: @post %>
+            </td>
+          </tr>
+          <tr>
+            <th></th>
+            <% if @post.customer == current_customer %>
+              <td><%= link_to "編集する", edit_post_path, class: "btn btn-success" %></td>
+              <td><%= link_to "削除する", @post, method: :delete, class: "btn btn-danger" %></td>
+            <% end %>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div id="comment_area">
+    <%= render 'public/food_comments/index', post: @post %>
+    <%= render 'public/food_comments/form',post:  @post,food_comment: @food_comment %>
+  </div>
+
+</div>

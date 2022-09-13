@@ -1,0 +1,34 @@
+<div class="container">
+  <div class="row mt-5">
+    <h4>編集ページ</h4>
+  </div>
+
+  <%= form_with model: @customer, url: customer_path, local: true do |f| %>
+    <div class="row mt-3">
+      <div class="col-2"><%= f.label "プロフィール画像" %></div>
+      <div class0"col-3"><%= f.file_field :profile_image, accept: "image/*" %></div>
+    </div>
+    <div class="row mt-2">
+      <div class="col-2"><%= f.label "名前" %></div>
+      <div class="col-3"><%= f.text_field :name %></div>
+    </div>
+    <div class="row mt-2">
+      <div class="col-2"><%= f.label "好きな場所" %></div>
+      <div class="col-3"><%= f.collection_select :prefecture_id, Prefecture.all, :id, :name %></div>
+    </div>
+    <div class="row mt-2">
+      <div class="col-2"><%= f.label "好きな食べ物" %></div>
+      <div class="col-3"><%= f.text_field :food %></div>
+    </div>
+    <div class="row mt-2">
+      <div class="col-2"><%= f.label "メールアドレス" %></div>
+      <div class="col-3"><%= f.text_field :email %></div>
+    </div>
+
+    <div class="row d-flex justify-content-center mt-3">
+      <div class="col-3"><%= f.submit "編集内容を保存", class: "btn btn-success" %></div>
+      <div class="col-3"><%= link_to "退会する", class: "btn btn-danger" %></div>
+    </div>
+  <% end %>
+
+</div>

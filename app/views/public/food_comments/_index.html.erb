@@ -1,0 +1,22 @@
+<div class="container">
+  <div class="row mt-3">
+    <table class="table">
+      <tbody>
+        <% post.food_comments.each do |food_comment| %>
+          <tr>
+            <%= link_to customer_path(food_comment.customer) do %>
+              <td class="col-2"><%= image_tag food_comment.customer.get_profile_image, size: "80x80" %></td>
+              <td class="col-2"><%= food_comment.customer.name %></td>
+            <% end %>
+              <td class="col-6"><%= food_comment.comment %></td>
+              <td class="col-2">
+                <% if food_comment.customer == current_customer %>
+                  <%= link_to "削除", post_food_comment_path(post, food_comment), method: :delete, remote: true, class: "btn btn-danger pull-right" %>
+                <% end %>
+              </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

@@ -1,0 +1,33 @@
+<table class="table">
+    <thead>
+      <tr>
+        <th></th>
+        <th>名前</th>
+        <th>好き都道府県</th>
+        <th>好きな料理</th>
+        <th>フォロー数</th>
+        <th>フォロワー数</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @customers.each do |customer| %>
+        <tr>
+          <td><%= image_tag customer.get_profile_image, size: '80x80' %></td>
+          <td><%= link_to customer.name, customer_path(customer.id) %></td>
+          <td><%= customer.prefecture&.name %></td>
+          <td><%= customer.food %></td>
+          <td><%= link_to customer.followings.count, customer_followings_path(customer) %></td>
+          <td><%= link_to customer.followers.count, customer_followers_path(customer) %></td>
+          <td>
+            <% if current_customer != customer %>
+              <% if current_customer.following?(customer) %>
+                <%= link_to "フォロー外す", customer_relationships_path(customer_id: customer.id), method: :delete %>
+              <% else %>
+                <%= link_to "フォローする", customer_relationships_path(customer_id: customer.id), method: :post %>
+              <% end %>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>

@@ -1,0 +1,26 @@
+<div class="container">
+  <div class="row mt-5">
+    <div class="col-3">
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>都道府県検索</th>
+          </tr>
+        </thead>
+        <tbody>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="col-9">
+      <h4>投稿一覧</h4>
+      <%= form_tag posts_path, method: :get, class: "boards__searchForm" do %>
+        <%= select_tag :tag_id, options_from_collection_for_select(Tag.all, :id, :name, params[:tag_id]),
+        {prompt: "タグで絞り込み検索", onchange: "submit(this.form);"} %>
+      <% end %>
+      <div class="text-right"><%= link_to "新規投稿", new_post_path, class: "btn btn-primary" %></div>
+      <%= render 'public/posts/index', posts: @posts %>
+    </div>
+  </div>
+
+</div>

@@ -1,0 +1,34 @@
+<div class="container">
+  <div class="row mt-5">
+    <h4>食べ物新規投稿</h4>
+  </div>
+
+  <%= form_with model: @post, url: posts_path do |f| %>
+    <div class="row mt-3">
+      <div class="col-4"><%= f.label "食べ物画像" %></div>
+      <div class="col-4"></div>
+    </div>
+    <div class="row mt-2">
+      <div class="col-4"><%= f.label "都道府県" %></div>
+      <div class="col-4"><%= f.collection_select :prefecture_id, Prefecture.all, :id, :name %></div>
+    </div>
+    <div class="row mt-2">
+      <div class="col-4"><%= f.label "食べ物名" %></div>
+      <div class="col-4"><%= f.text_field :food_name %></div>
+    </div>
+    <div class="row mt-2">
+      <div class="col-4"><%= f.label "食べ物説明" %></div>
+      <div class="col-6"><%= f.text_area :introduction, class: "w-100" %></div>
+    </div>
+    <div class="row mt-2">
+      <div class="col-4"><%= f.label "タグ (,で区切ると複数タグ登録できます)" %></div>
+      <div class="col-6"><%= f.text_field :name, value: @tag_list, class: "w-100" %></div>
+    </div>
+
+    <div class="row mt-2">
+      <div class="col-2"></div>
+      <div class="col-3"><%= f.submit "新規登録", class: "btn btn-success" %></div>
+    </div>
+  <% end %>
+
+</div>
