@@ -1,7 +1,7 @@
 class Public::FoodCommentsController < ApplicationController
 
   def create
-    @post = Post.find_or_create_by(params[:id])
+    @post = Post.find(params[:post_id])
     @comment = current_customer.food_comments.new(food_comment_params)
     @comment.post_id = @post.id
     @comment.save
@@ -17,7 +17,7 @@ class Public::FoodCommentsController < ApplicationController
   private
 
   def food_comment_params
-    params.require(:food_comment).permit(:comment)
+    params.require(:food_comment).permit(:comment, :star)
   end
 
 end

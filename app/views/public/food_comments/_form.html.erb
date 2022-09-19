@@ -1,4 +1,24 @@
 <%= form_with(model:[post, food_comment], local: false) do |f| %>
-  <%= f.text_area :comment, rows: '2', placeholder: "コメントをここに", class: "w-50" %>
-  <%= f.submit "投稿" %>
+  <div class="form-group mt-3">
+    <%= f.text_area :comment, rows: '2', placeholder: "コメントをここに", class: "w-50" %>
+  </div>
+
+  <div class="form-froup row mt-3" id="star">
+    <%= f.label :star, "評価", class: "col-3 col-form-label" %>
+    <%= f.hidden_field :star, id: :review_star %>
+  </div>
+  <script>
+    $('#star').empty();
+    $('#star').raty({
+      size     : 36,
+      starOff  : '<%= asset_path('star-off.png') %>',
+      starOn   : '<%= asset_path('star-on.png') %>',
+      scoreName: 'food_comment[star]',
+      half     : false,
+    });
+  </script>
+
+  <div class="form-group mt-3">
+    <%= f.submit "投稿" %>
+  </div>
 <% end %>

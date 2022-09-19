@@ -5,11 +5,13 @@
 
   <div class="row mt-3">
     <table class="table">
-      <thead>
+      <thead style="background-color:#FFCC66;">
         <tr>
           <th>投稿日時</th>
           <th></th>
+          <th>都道府県名</th>
           <th>食べ物名</th>
+          <th>評価</th>
           <th>説明</th>
           <th>タグ</th>
           <th>いいね数</th>
@@ -17,15 +19,17 @@
         </tr>
       </thead>
       <tbody>
-        <% @favorite_posts.each do |post| %>
+        <% @favorite_posts.each_with_index do |post,i| %>
           <tr>
             <td><%= post.created_at.strftime('%Y/%m/%d') %></td>
-            <td></td>
+            <td><%= image_tag post.image, size: "80x80" %></td>
+            <td><%= post.prefecture.name %></td>
             <td>
               <%= link_to post_path(post.id) do %>
                 <% post.food_name %>
               <% end %>
             </td>
+            <td><%= @fdivs[i].to_f.round(1) %></td>
             <td><%= post.introduction %></td>
             <td><%= post.tags.map(&:name).join(', ') %></td>
             <td id="favorite_buttons_<%= post.id %>">

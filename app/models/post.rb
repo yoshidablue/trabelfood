@@ -5,12 +5,19 @@ class Post < ApplicationRecord
   has_many :post_tags,     dependent: :destroy
   has_many :tags, through: :post_tags
 
+  has_one_attached :image
+
   belongs_to :customer
   belongs_to :prefecture
 
+  validates :image,         presence: true
   validates :prefecture_id, presence: true
   validates :food_name,     presence: true
   validates :introduction,  presence: true
+
+  scope :latest,     -> {order(created_at: :desc)}
+  scope :old,        -> {order(created_at: :asc)}
+  scope :star_count, -> {find(FoodComment.group(:post_id).order('avg(star) desc').pluck(:post_id))}
 
   def favorited_by?(customer)
     favorites.exists?(customer_id: customer.id)
@@ -39,6 +46,12 @@ class Post < ApplicationRecord
       Post.where('food_name LIKE(?)', "%#{search}%")
     else
       Post.all
+    end
+  end
+
+  def self.search_prefecture(search)
+    if search != ""
+      Post.where(prefecture_id: search)
     end
   end
 

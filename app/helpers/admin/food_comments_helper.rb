@@ -1,0 +1,2 @@
+module Admin::FoodCommentsHelper
+end

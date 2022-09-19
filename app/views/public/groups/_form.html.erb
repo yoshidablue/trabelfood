@@ -1,0 +1,21 @@
+<%= form_with model: group, local: true do |f| %>
+  <div class="row mt-3">
+    <div class="col-4"><%= f.label "グループ画像" %></div>
+    <div class="col-3"><%= f.file_field :image, accept: "image/*" %></div>
+  </div>
+
+  <div class="row mt-2">
+    <div class="col-4"><%= f.label "グループ名" %></div>
+    <div class="col-3"><%= f.text_field :name %></div>
+  </div>
+
+  <div class="row mt-2">
+    <div class="col-4"><%= f.label "紹介文" %></div>
+    <div class="col-8"><%= f.text_area :introduction, class: "w-100" %></div>
+  </div>
+
+  <div class="row mt-2">
+    <div class="col-4"></div>
+    <div class="col-3"><%= f.submit "編集内容を保存", class: "btn btn-success" %></div>
+  </div>
+<% end %>

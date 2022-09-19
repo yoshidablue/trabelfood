@@ -1,0 +1,59 @@
+<div class="container">
+  <div class="row mt-5">
+    <h4>会員詳細</h4>
+  </div>
+
+  <div class="row mt-3">
+    <table class="table col-3">
+      <tr>
+        <td>会員ID</td>
+        <td><%= @customer.id %></td>
+      </tr>
+      <tr>
+        <td>プロフィール画像</td>
+        <td><%= image_tag @customer.get_profile_image, size:'80x80' %></td>
+      </tr>
+      <tr>
+        <td>名前</td>
+        <td><%= @customer.name %></td>
+      </tr>
+      <tr>
+        <td>好きな場所</td>
+        <td><%= @customer.prefecture&.name %></td>
+      </tr>
+      <tr>
+        <td>好きな食べ物</td>
+        <td><%= @customer.food %></td>
+      </tr>
+      <tr>
+        <td>メールアドレス</td>
+        <td><%= @customer.email %></td>
+      </tr>
+      <tr>
+        <td>ステータス</td>
+        <td>
+          <% if @customer.is_deleted == false %>
+            <p class="text-success">有効</p>
+          <% else %>
+            <p class="text-secondary">退会</p>
+          <% end %>
+        </td>
+      </tr>
+    </table>
+
+    <div class="col-9">
+      <div class="container">
+        <div class="row">
+          <%= render 'admin/posts/index', posts: @post %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row mt-3">
+    <div class="col-3">
+      <%= link_to "編集", edit_admin_customer_path, class: "btn btn-success btn-block" %>
+    </div>
+  </div>
+
+</div>

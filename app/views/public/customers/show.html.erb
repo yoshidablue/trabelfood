@@ -24,18 +24,49 @@
     </table>
 
     <div class="col-9">
-      <%= render 'public/posts/index', posts: @posts %>
+      <%= render 'public/posts/index', posts: @posts, fdivs: @fdivs %>
     </div>
   </div>
 
   <div class="row mt-3">
     <div class="col-3">
-      <% if @customer == current_customer %>
-        <%= link_to "編集", edit_customer_path, class: "btn btn-success btn-block" %>
-      <% end %>
-      <%= link_to "フォロー一覧", customer_followings_path(@customer), class: "btn btn-info btn-block" %>
-      <%= link_to "フォロワー一覧", customer_followers_path(@customer), class: "btn btn-info btn-block" %>
-      <%= link_to "いいね一覧", favorites_customer_path(@customer), class: "btn btn-info btn-block" %>
+      <div class="row mt-2">
+        <% if @customer.name != "guestuser" %>
+          <% if @customer == current_customer %>
+            <%= link_to "編集", edit_customer_path, class: "btn btn-success btn-block" %>
+          <% end %>
+        <% end %>
+      </div>
+      <div class="row mt-2">
+        <%= link_to "フォロー一覧", customer_followings_path(@customer), class: "btn btn-info btn-block" %>
+      </div>
+      <div class="row mt-2">
+        <%= link_to "フォロワー一覧", customer_followers_path(@customer), class: "btn btn-info btn-block" %>
+      </div>
+      <div class="row mt-2">
+        <%= link_to "いいね一覧", favorites_customer_path(@customer), class: "btn btn-info btn-block" %>
+      </div>
+      <div class="row mt-2">
+        <% if @customer.name != "guestuser" %>
+          <% if @customer.id != current_customer.id %>
+            <!-- 既にroomがある場合（以前にDMのやりとりしている） -->
+            <% if @isRoom == true %>
+              <!-- そのままroomに入る -->
+              <%= link_to "DM", room_path(@roomId), class: "btn btn-info btn-block" %>
+            <!-- roomがない場合（新規のDM） -->
+            <% else %>
+              <!-- RoomとEntry２つのモデルにデータを送る -->
+              <%= form_with model: @room, local: true do |f| %>
+                <%= fields_for @entry do |e| %>
+                  <!-- Entryにはcustomer_idを送る必要があるため、@customer.idを指定 -->
+                  <%= e.hidden_field :customer_id, value: @customer.id %>
+                <% end %>
+                <%= f.submit "チャットを始める", class: "btn btn-info btn-block" %>
+              <% end %>
+            <% end %>
+          <% end %>
+        <% end %>
+      </div>
     </div>
   </div>
 

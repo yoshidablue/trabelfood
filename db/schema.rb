@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_09_08_073032) do
+ActiveRecord::Schema.define(version: 2022_09_18_075145) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -68,6 +68,15 @@ ActiveRecord::Schema.define(version: 2022_09_08_073032) do
     t.index ["reset_password_token"], name: "index_customers_on_reset_password_token", unique: true
   end
 
+  create_table "entries", force: :cascade do |t|
+    t.integer "customer_id", null: false
+    t.integer "room_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["customer_id"], name: "index_entries_on_customer_id"
+    t.index ["room_id"], name: "index_entries_on_room_id"
+  end
+
   create_table "favorites", force: :cascade do |t|
     t.integer "post_id", null: false
     t.integer "customer_id", null: false
@@ -79,8 +88,42 @@ ActiveRecord::Schema.define(version: 2022_09_08_073032) do
     t.integer "post_id", null: false
     t.integer "customer_id", null: false
     t.text "comment", null: false
+    t.string "star"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "group_comments", force: :cascade do |t|
+    t.integer "group_id", null: false
+    t.integer "customer_id", null: false
+    t.text "comment", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "group_customers", force: :cascade do |t|
+    t.integer "customer_id", null: false
+    t.integer "group_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "groups", force: :cascade do |t|
+    t.integer "owner_customer_id", null: false
+    t.string "name", null: false
+    t.text "introduction", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "messages", force: :cascade do |t|
+    t.integer "customer_id", null: false
+    t.integer "room_id", null: false
+    t.text "content"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["customer_id"], name: "index_messages_on_customer_id"
+    t.index ["room_id"], name: "index_messages_on_room_id"
   end
 
   create_table "post_tags", force: :cascade do |t|
@@ -115,6 +158,12 @@ ActiveRecord::Schema.define(version: 2022_09_08_073032) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "rooms", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "tags", force: :cascade do |t|
     t.string "name", null: false
     t.datetime "created_at", precision: 6, null: false
@@ -123,6 +172,10 @@ ActiveRecord::Schema.define(version: 2022_09_08_073032) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "entries", "customers"
+  add_foreign_key "entries", "rooms"
+  add_foreign_key "messages", "customers"
+  add_foreign_key "messages", "rooms"
   add_foreign_key "post_tags", "posts"
   add_foreign_key "post_tags", "tags"
 end

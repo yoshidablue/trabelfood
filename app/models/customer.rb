@@ -8,9 +8,14 @@ class Customer < ApplicationRecord
 
   belongs_to :prefecture, optional: true
 
-  has_many :posts,         dependent: :destroy
-  has_many :favorites,     dependent: :destroy
-  has_many :food_comments, dependent: :destroy
+  has_many :posts,           dependent: :destroy
+  has_many :favorites,       dependent: :destroy
+  has_many :food_comments,   dependent: :destroy
+  has_many :entries,         dependent: :destroy
+  has_many :messages,        dependent: :destroy
+  has_many :group_customers, dependent: :destroy
+  has_many :group_comments,  dependent: :destroy
+  has_many :groups, through: :group_customers
   # フォローした、されたの関係
   has_many :relationships,            class_name: "Relationship", foreign_key: "follower_id", dependent: :destroy
   has_many :reverse_of_relationships, class_name: "Relationship", foreign_key: "followed_id", dependent: :destroy
@@ -35,6 +40,13 @@ class Customer < ApplicationRecord
 
   def following?(customer)
     followings.include?(customer)
+  end
+
+  def self.guest
+    find_or_create_by!(email: 'guest@example.com') do |customer|
+      customer.password = SecureRandom.urlsafe_base64
+      customer.name = "guestuser"
+    end
   end
 
 end

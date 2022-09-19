@@ -1,0 +1,31 @@
+<div class="container">
+  <div class="row mt-5">
+    <h1>DM</h1>
+  </div>
+
+  <div class="row mt-3">
+    <h4>参加者</h4>
+    <% @entries.each do |e| %>
+      <h4><strong><a href="/customers/<%= e.customer.id %>">　<%= e.customer.name %>さん</a></strong></h4>
+    <% end %>
+  </div>
+
+  <div class="row mt-3"></div>
+    <% if @messages.present? %>
+      <% @messages.each do |m| %>
+        <strong><%= m.content %></strong>
+        <small>by <strong><a href="/customers/<%= m.customer_id %>"><%= m.customer.name %></a></strong></small>
+        <hr>
+      <% end %>
+    <% else %>
+      <h3 class="text-center">メッセージはまだありません</h3>
+    <% end %>
+
+    <%= form_for @message do |f| %>
+      <%= f.text_field :content, :placeholder => "メッセージを入力してください", size: "50x40" %>
+      <%= f.hidden_field :room_id, :value => @room.id %>
+      <br>
+      <%= f.submit "投稿する" %>
+    <% end %>
+  </div>
+</div>

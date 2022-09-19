@@ -1,0 +1,78 @@
+<div class="container">
+  <div class="row mt-5">
+    <h4>投稿詳細</h4>
+  </div>
+
+  <div class="row mt-3">
+    <div class="col-5">
+      <%= image_tag @post.image, size: "300x300" %>
+    </div>
+
+    <div class="col-7">
+      <table class="table table-borderless">
+        <tbody>
+          <tr>
+            <th>都道府県</th>
+            <td><%= @post.prefecture&.name %></td>
+          </tr>
+          <tr>
+            <th>食べ物名</th>
+            <td><%= @post.food_name %></td>
+          </tr>
+          <tr>
+            <th>食べ物説明</th>
+            <td><%= @post.introduction %></td>
+          </tr>
+          <tr>
+            <th>タグ</th>
+            <td>
+              <% @post_tags.each do |tag| %>
+                <%= tag.name %>
+              <% end %>
+            </td>
+          </tr>
+          <tr>
+            <th></th>
+            <td><%= link_to "削除する", admin_post_path(@post), method: :delete, class: "btn btn-danger" %></td>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div id="comment_area">
+    <div class="container">
+      <div class="row mt-3">
+        <table class="table">
+          <tbody>
+            <% @post.food_comments.each do |food_comment| %>
+              <tr>
+                <td class="col-1"><%= image_tag food_comment.customer.get_profile_image, size: "80x80" %></td>
+                <td class="col-1"><%= food_comment.customer.name %></td>
+                <td class="col-2">
+                  <div id="star-rate<%= food_comment.id %>"></div>
+                    <script>
+                      $('#star-rate<%= food_comment.id %>').empty();
+                      $('#star-rate<%= food_comment.id %>').raty({
+                        size     : 36,
+                        starOff  : '<%= asset_path('star-off.png') %>',
+                        starOn   : '<%= asset_path('star-on.png') %>',
+                        half     : false,
+                        readOnly : true,
+                        score    : '<%= food_comment.star %>',
+                      });
+                    </script>
+                </td>
+                <td class="col-7"><%= food_comment.comment %></td>
+                <td class="col-1">
+                  <%= link_to "削除", admin_post_food_comment_path(@post, food_comment), method: :delete, remote: true, class: "btn btn-danger pull-right" %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

@@ -6,6 +6,11 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
+Admin.create!(
+  email:    'food@food',
+  password: 'food00',
+  )
+
 Prefecture.create(name: '北海道')
 Prefecture.create(name: '青森県')
 Prefecture.create(name: '岩手県')
