@@ -20,7 +20,7 @@ class Public::PostsController < ApplicationController
         # @posts = Tag.find(params[:tag_id]).posts
       # else
           # タグが選ばれていない -> 全ての投稿を返す仕様にしている
-        @posts = Post.all
+        #@posts = Post.all
     end
 
     @fdivs = []
