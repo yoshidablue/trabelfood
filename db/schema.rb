@@ -69,12 +69,10 @@ ActiveRecord::Schema.define(version: 2022_09_18_075145) do
   end
 
   create_table "entries", force: :cascade do |t|
-    t.bigint "customer_id", null: false
-    t.bigint "room_id", null: false
+    t.bigint "customer", null: false
+    t.bigint "room", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["customer_id"], name: "index_entries_on_customer_id"
-    t.index ["room_id"], name: "index_entries_on_room_id"
   end
 
   create_table "favorites", force: :cascade do |t|
@@ -117,23 +115,19 @@ ActiveRecord::Schema.define(version: 2022_09_18_075145) do
   end
 
   create_table "messages", force: :cascade do |t|
-    t.bigint "customer_id", null: false
-    t.bigint "room_id", null: false
+    t.bigint "customer", null: false
+    t.bigint "room", null: false
     t.text "content"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["customer_id"], name: "index_messages_on_customer_id"
-    t.index ["room_id"], name: "index_messages_on_room_id"
   end
 
   create_table "post_tags", force: :cascade do |t|
-    t.bigint "post_id"
-    t.bigint "tag_id"
+    t.bigint "post"
+    t.bigint "tag"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["post_id", "tag_id"], name: "index_post_tags_on_post_id_and_tag_id", unique: true
-    t.index ["post_id"], name: "index_post_tags_on_post_id"
-    t.index ["tag_id"], name: "index_post_tags_on_tag_id"
+    t.index "\"post_id\", \"tag_id\"", name: "index_post_tags_on_post_id_and_tag_id", unique: true
   end
 
   create_table "posts", force: :cascade do |t|
@@ -172,10 +166,4 @@ ActiveRecord::Schema.define(version: 2022_09_18_075145) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
-  add_foreign_key "entries", "customers"
-  add_foreign_key "entries", "rooms"
-  add_foreign_key "messages", "customers"
-  add_foreign_key "messages", "rooms"
-  add_foreign_key "post_tags", "posts"
-  add_foreign_key "post_tags", "tags"
 end
