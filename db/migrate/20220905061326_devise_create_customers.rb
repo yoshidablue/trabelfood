@@ -35,7 +35,7 @@ class DeviseCreateCustomers < ActiveRecord::Migration[6.1]
 
       t.string  :name,          null: false
       t.string  :food
-      t.integer :prefecture_id
+      t.bigint :prefecture_id
       t.boolean :is_deleted,    null: false, default: false
 
       t.timestamps null: false

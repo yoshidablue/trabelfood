@@ -60,7 +60,7 @@ ActiveRecord::Schema.define(version: 2022_09_18_075145) do
     t.datetime "remember_created_at"
     t.string "name", null: false
     t.string "food"
-    t.integer "prefecture_id"
+    t.bigint "prefecture_id"
     t.boolean "is_deleted", default: false, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -78,15 +78,15 @@ ActiveRecord::Schema.define(version: 2022_09_18_075145) do
   end
 
   create_table "favorites", force: :cascade do |t|
-    t.integer "post_id", null: false
-    t.integer "customer_id", null: false
+    t.bigint "post_id", null: false
+    t.bigint "customer_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "food_comments", force: :cascade do |t|
-    t.integer "post_id", null: false
-    t.integer "customer_id", null: false
+    t.bigint "post_id", null: false
+    t.bigint "customer_id", null: false
     t.text "comment", null: false
     t.string "star"
     t.datetime "created_at", precision: 6, null: false
@@ -94,22 +94,22 @@ ActiveRecord::Schema.define(version: 2022_09_18_075145) do
   end
 
   create_table "group_comments", force: :cascade do |t|
-    t.integer "group_id", null: false
-    t.integer "customer_id", null: false
+    t.bigint "group_id", null: false
+    t.bigint "customer_id", null: false
     t.text "comment", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "group_customers", force: :cascade do |t|
-    t.integer "customer_id", null: false
-    t.integer "group_id", null: false
+    t.bigint "customer_id", null: false
+    t.bigint "group_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "groups", force: :cascade do |t|
-    t.integer "owner_customer_id", null: false
+    t.bigint "owner_customer_id", null: false
     t.string "name", null: false
     t.text "introduction", null: false
     t.datetime "created_at", precision: 6, null: false
@@ -137,8 +137,8 @@ ActiveRecord::Schema.define(version: 2022_09_18_075145) do
   end
 
   create_table "posts", force: :cascade do |t|
-    t.integer "customer_id", null: false
-    t.integer "prefecture_id", null: false
+    t.bigint "customer_id", null: false
+    t.bigint "prefecture_id", null: false
     t.string "food_name", null: false
     t.text "introduction", null: false
     t.datetime "created_at", precision: 6, null: false
@@ -152,8 +152,8 @@ ActiveRecord::Schema.define(version: 2022_09_18_075145) do
   end
 
   create_table "relationships", force: :cascade do |t|
-    t.integer "follower_id"
-    t.integer "followed_id"
+    t.bigint "follower_id"
+    t.bigint "followed_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
