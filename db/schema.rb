@@ -69,8 +69,8 @@ ActiveRecord::Schema.define(version: 2022_09_18_075145) do
   end
 
   create_table "entries", force: :cascade do |t|
-    t.bigint "customer", null: false
-    t.bigint "room", null: false
+    t.bigint "customer_id", null: false
+    t.bigint "room_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -115,19 +115,19 @@ ActiveRecord::Schema.define(version: 2022_09_18_075145) do
   end
 
   create_table "messages", force: :cascade do |t|
-    t.bigint "customer", null: false
-    t.bigint "room", null: false
+    t.bigint "customer_id", null: false
+    t.bigint "room_id", null: false
     t.text "content"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "post_tags", force: :cascade do |t|
-    t.bigint "post"
-    t.bigint "tag"
+    t.bigint "post_id"
+    t.bigint "tag_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index "\"post_id\", \"tag_id\"", name: "index_post_tags_on_post_id_and_tag_id", unique: true
+    t.index ["post_id", "tag_id"], name: "index_post_tags_on_post_id_and_tag_id", unique: true
   end
 
   create_table "posts", force: :cascade do |t|
