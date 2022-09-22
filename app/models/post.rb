@@ -3,7 +3,7 @@ class Post < ApplicationRecord
   has_many :favorites,     dependent: :destroy
   has_many :food_comments, dependent: :destroy
   has_many :post_tags,     dependent: :destroy
-  has_many :tags, through: :post_tags
+  has_many :tags, through: :post_tags, dependent: :destroy
 
   has_one_attached :image
 
@@ -13,7 +13,7 @@ class Post < ApplicationRecord
   validates :image,         presence: true
   validates :prefecture_id, presence: true
   validates :food_name,     presence: true
-  validates :introduction,  presence: true
+  validates :introduction,  presence: true, length:{maximum: 50}
 
   scope :latest,     -> {order(created_at: :desc)}
   scope :old,        -> {order(created_at: :asc)}

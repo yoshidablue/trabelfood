@@ -2,16 +2,16 @@
   <div class="row">
     <table class="table">
       <tbody>
-        <% group.group_comments.each do |group_comment| %>
+        <% group.group_comments.reverse.each do |group_comment| %>
           <tr>
             <%= link_to customer_path(group_comment.customer) do %>
               <td class="col-1"><%= image_tag group_comment.customer.get_profile_image, size: "80x80" %></td>
               <td class="col-2"><%= group_comment.customer.name %></td>
             <% end %>
-              <td><%= group_comment.comment %></td>
-              <td>
+              <td class="col-6"><%= group_comment.comment %></td>
+              <td class="col-3">
                 <% if group_comment.customer == current_customer %>
-                  <%= link_to "削除", group_group_comment_path(group, group_comment), method: :delete, remote: true, class: "btn btn-danger pull-right" %>
+                  <%= link_to "コメント削除", group_group_comment_path(group, group_comment), method: :delete, remote: true, class: "btn btn-danger pull-right" %>
                 <% end %>
               </td>
           </tr>

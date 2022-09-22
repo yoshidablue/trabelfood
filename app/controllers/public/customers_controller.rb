@@ -5,7 +5,7 @@ class Public::CustomersController < ApplicationController
 
   def show
     @customer = Customer.find(params[:id])
-    @posts = @customer.posts
+    @posts = @customer.posts.order("created_at DESC")
 
     @fdivs = []
     @posts.each do |post|
@@ -47,7 +47,7 @@ class Public::CustomersController < ApplicationController
   end
 
   def index
-    @customers = Customer.all
+    @customers = Customer.all.order("created_at DESC").page(params[:page]).per(10)
     @post = Post.new
   end
 

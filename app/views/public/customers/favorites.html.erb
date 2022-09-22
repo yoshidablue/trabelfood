@@ -30,7 +30,7 @@
               <% end %>
             </td>
             <td><%= @fdivs[i].to_f.round(1) %></td>
-            <td><%= post.introduction %></td>
+            <td><%= post.introduction.truncate(10) %></td>
             <td><%= post.tags.map(&:name).join(', ') %></td>
             <td id="favorite_buttons_<%= post.id %>">
               <%= render "public/favorites/btn", post: post %>

@@ -20,7 +20,7 @@
           <tr>
             <td><%= image_tag group.get_group_image, size: "80x80" %></td>
             <td><%= link_to group.name, group_path(group) %></td>
-            <td><%= group.introduction %></td>
+            <td><%= group.introduction.truncate(25) %></td>
             <td><%= group.customers.count %></td>
             <td>
               <% if group.owner_customer_id == current_customer.id %>

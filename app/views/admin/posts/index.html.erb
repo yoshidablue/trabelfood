@@ -3,6 +3,19 @@
     <h4>投稿一覧</h4>
   </div>
 
+  <div class="row">
+    <%= link_to "新しい順", admin_posts_path(latest: "true") %>
+    |<%= link_to "古い順", admin_posts_path(old: "true") %>
+    |<%= link_to "評価の高い順", admin_posts_path(star_count: "true") %>
+  </div>
+
+  <div class="row">
+    <%= form_tag admin_posts_path, method: :get, class: "boards__searchForm" do %>
+      <%= select_tag :tag_id, options_from_collection_for_select(Tag.all, :id, :name, params[:tag_id]),
+      {prompt: "タグで絞り込み検索", onchange: "submit(this.form);"} %>
+    <% end %>
+  </div>
+
   <div class="row mt-3">
     <%= render 'admin/posts/index', posts: @posts %>
   </div>

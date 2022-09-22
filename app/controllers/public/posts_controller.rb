@@ -2,6 +2,7 @@ class Public::PostsController < ApplicationController
 
   before_action :authenticate_customer!
 
+
   def index
     if params[:latest]
       @posts = Post.latest
@@ -10,7 +11,7 @@ class Public::PostsController < ApplicationController
     elsif params[:star_count]
       @posts = Post.star_count
     else
-      @posts = params[:tag_id].present? ? Tag.find(params[:tag_id]).posts : Post.all
+      @posts = params[:tag_id].present? ? Tag.find(params[:tag_id]).posts : Post.all.order("created_at DESC")
         # params[:tag_id]は、「タグ検索画面で、指定したタグ(例: 漬物)のidがわたってくる
         # 一番上の「タグで絞り込み」というメニューを選んだまま検索ボタンが押されたら？ → params[:tag_id]がnil(空の値になっている)
       # if params[:tag_id].present?    params[:tag_id]に値があるの？ yes/no → プルダウンでタグが選択されている？されていない？
@@ -85,6 +86,16 @@ class Public::PostsController < ApplicationController
       @posts = Post.search_prefecture(res.id)
     else
       @posts = Post.search(params[:keyword])
+    end
+
+    # 並び替え
+    if params[:latest]
+      @posts = @posts.latest
+    elsif params[:old]
+      @posts = @posts.old
+    elsif params[:star_count]
+      # Post.left_joins(:comments).where('postの検索条件').group(:id).order('avg(comments.star) desc')
+      @posts = @posts.left_joins(:food_comments).group(:id).order('avg(food_comments.star) desc')
     end
 
     @fdivs = []

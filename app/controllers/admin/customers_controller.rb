@@ -1,14 +1,26 @@
 class Admin::CustomersController < ApplicationController
 
-  before_action :authenticate_customer!
-
   def show
     @customer = Customer.find(params[:id])
-    @posts = @customer.posts
+    @posts = @customer.posts.order("created_at DESC")
+
+    @fdivs = []
+    @posts.each do |post|
+      stars = []
+      post.food_comments.each do |food_comment|
+        stars.push(food_comment.star.to_i)
+      end
+      fdiv = stars.sum.fdiv(stars.length)
+
+      if fdiv.nan?
+        fdiv = ""
+      end
+      @fdivs.push(fdiv)
+    end
   end
 
   def index
-    @customers = Customer.all
+    @customers = Customer.all.page(params[:page]).per(10)
   end
 
   def edit

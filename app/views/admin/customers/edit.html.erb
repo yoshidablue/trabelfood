@@ -1,6 +1,6 @@
 <div class="container">
   <div class="row mt-5">
-    <h4>編集ページ</h4>
+    <h4>会員編集</h4>
   </div>
 
   <%= form_with model: @customer, url: admin_customer_path, local: true do |f| %>
@@ -25,8 +25,8 @@
       <div class="col-3"><%= f.text_field :food %></div>
     </div>
     <div class="row mt-2">
-      <div class="col-2"><%= f.label "メールアドレス" %></div>
-      <div class="col-3"><%= f.text_field :email %></div>
+      <div class="col-2">メールアドレス</div>
+      <div class="col-3"><%= @customer.email %></div>
     </div>
     <div class="row mt-2">
       <div class="col-2"><%= f.label "ステータス" %></div>

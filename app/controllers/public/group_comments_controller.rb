@@ -4,8 +4,11 @@ class Public::GroupCommentsController < ApplicationController
     @group = Group.find(params[:group_id])
     @comment = current_customer.group_comments.new(group_comment_params)
     @comment.group_id = @group.id
-    @comment.save
-    redirect_to group_path(@group)
+    if @comment.save
+      redirect_to group_path(@group)
+    else
+      render :show
+    end
   end
 
   def destroy

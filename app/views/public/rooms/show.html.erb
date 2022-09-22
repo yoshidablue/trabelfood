@@ -11,6 +11,13 @@
   </div>
 
   <div class="row mt-3"></div>
+    <%= form_for @message do |f| %>
+      <%= f.text_field :content, :placeholder => "メッセージを入力してください", size: "50x40" %>
+      <%= f.hidden_field :room_id, :value => @room.id %>
+      <br>
+      <%= f.submit "投稿する", class: "mb-3" %>
+    <% end %>
+
     <% if @messages.present? %>
       <% @messages.each do |m| %>
         <strong><%= m.content %></strong>
@@ -19,13 +26,6 @@
       <% end %>
     <% else %>
       <h3 class="text-center">メッセージはまだありません</h3>
-    <% end %>
-
-    <%= form_for @message do |f| %>
-      <%= f.text_field :content, :placeholder => "メッセージを入力してください", size: "50x40" %>
-      <%= f.hidden_field :room_id, :value => @room.id %>
-      <br>
-      <%= f.submit "投稿する" %>
     <% end %>
   </div>
 </div>

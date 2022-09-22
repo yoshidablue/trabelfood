@@ -3,7 +3,7 @@ class Public::GroupsController < ApplicationController
   before_action :authenticate_customer!
 
   def index
-    @groups = Group.all
+    @groups = Group.all.order("created_at DESC")
   end
 
   def show
@@ -19,7 +19,7 @@ class Public::GroupsController < ApplicationController
   def update
     @group = Group.find(params[:id])
     if @group.update(group_params)
-      redirect_to groups_path
+      redirect_to group_path(@group.id)
     else
       render :edit
     end

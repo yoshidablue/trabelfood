@@ -5,13 +5,14 @@
       <th></th>
       <th>都道府県名</th>
       <th>食べ物名</th>
+      <th>評価</th>
       <th>説明</th>
       <th>タグ</th>
       <th>コメント数</th>
     </tr>
   </thead>
   <tbody>
-    <% @posts.each do |post| %>
+    <% posts.each_with_index do |post, i| %>
       <tr>
         <td><%= post.created_at.strftime('%Y/%m/%d') %></td>
         <td><%= image_tag post.image, size: "80x80" %></td>
@@ -21,7 +22,8 @@
             <% post.food_name %>
           <% end %>
         </td>
-        <td><%= post.introduction %></td>
+        <td><%= @fdivs[i].to_f.round(1) %></td>
+        <td><%= post.introduction.truncate(10) %></td>
         <td><%= post.tags.map(&:name).join(', ') %></td>
         <td><%= post.food_comments.count %></td>
       </tr>

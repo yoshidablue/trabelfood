@@ -7,7 +7,7 @@
     <thead style="background-color:#FFCC66;">
       <tr>
         <th>会員ID</th>
-        <th></th>
+        <th>プロフィール画像</th>
         <th>名前</th>
         <th>メールアドレス</th>
         <th>ステータス</th>
@@ -31,4 +31,8 @@
       <% end %>
     </tbody>
   </table>
+
+  <div class="row justify-content-center">
+    <%= paginate @customers %>
+  </div>
 </div>
