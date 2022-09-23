@@ -17,8 +17,8 @@
  旅行の計画時
 
 ## 設計書
- ER図　https://app.diagrams.net/#G15JOMT6UCCrfzOnpgWTBpOPYJ2AnY_Nw7
- テーブル定義書　https://docs.google.com/spreadsheets/d/1yPfRmvZW-4Frbo5187rwO3zPASPeSr7UeeY4nLjYB-s/edit#gid=2092953335
+- ER図　　　　　　https://app.diagrams.net/#G15JOMT6UCCrfzOnpgWTBpOPYJ2AnY_Nw7
+- テーブル定義書　https://docs.google.com/spreadsheets/d/1yPfRmvZW-4Frbo5187rwO3zPASPeSr7UeeY4nLjYB-s/edit#gid=2092953335
 
 ## 開発環境
 - OS：Linux(CentOS)
