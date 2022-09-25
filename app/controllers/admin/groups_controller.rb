@@ -10,12 +10,6 @@ class Admin::GroupsController < ApplicationController
     @group_comment = GroupComment.new
   end
 
-  def destroy
-    @group = Group.find(params[:id])
-    @group.customers.delete(current_customer)
-    redirect_to admin_groups_path
-  end
-
   def all_destroy
     @group = Group.find(params[:group_id])
     if @group.destroy
