@@ -1,0 +1,28 @@
+<div class="container">
+  <div class="row mt-5">
+    <h4>グループ一覧</h4>
+  </div>
+
+  <div class="row mt-3">
+    <table class="table">
+      <thead style="background-color:#FFCC66;">
+        <tr>
+          <th class="col-2">グループ画像</th>
+          <th class="col-2">グループ名</th>
+          <th class="col-5">紹介文</th>
+          <th class="col-2">メンバー数</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @groups.each do |group| %>
+          <tr>
+            <td><%= image_tag group.get_group_image, size: "80x80" %></td>
+            <td><%= link_to group.name, admin_group_path(group) %></td>
+            <td><%= group.introduction.truncate(25) %></td>
+            <td><%= group.customers.count %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

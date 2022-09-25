@@ -1,0 +1,42 @@
+<div class="container">
+  <div class="row mt-5">
+    <h4>グループ詳細</h4>
+  </div>
+
+  <div class="row mt-3">
+    <table class="table col-3">
+      <tr>
+        <td>グループ画像</td>
+        <td><%= image_tag @group.get_group_image, size: "80x80" %></td>
+      </tr>
+      <tr>
+        <td>グループ名</td>
+        <td><%= @group.name %></td>
+      </tr>
+      <tr>
+        <td>紹介文</td>
+        <td><%= @group.introduction %></td>
+      </tr>
+      <tr>
+        <td>メンバー</td>
+        <td>
+          <% @group.customers.each do |member| %>
+            <li><%= member.name %></li>
+          <% end %>
+        </td>
+      </tr>
+    </table>
+
+    <div class="col-9">
+      <div id="comment_area">
+        <%= render 'admin/group_comments/index', group: @group %>
+      </div>
+    </div>
+  </div>
+
+  <div class="row mt-3">
+    <div class="col-3">
+      <%= link_to "グループ解散", admin_group_all_destroy_path(@group), method: :delete, class: "btn btn-danger btn-block" %>
+    </div>
+  </div>
+</div>

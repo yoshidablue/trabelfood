@@ -1,0 +1,20 @@
+<div class="container">
+  <div class="row">
+    <table class="table">
+      <tbody>
+        <% group.group_comments.reverse.each do |group_comment| %>
+          <tr>
+            <%= link_to admin_customer_path(group_comment.customer) do %>
+              <td class="col-1"><%= image_tag group_comment.customer.get_profile_image, size: "80x80" %></td>
+              <td class="col-2"><%= group_comment.customer.name %></td>
+            <% end %>
+              <td class="col-6"><%= group_comment.comment %></td>
+              <td class="col-3">
+                <%= link_to "コメント削除", admin_group_group_comment_path(group, group_comment), method: :delete, remote: true, class: "btn btn-danger pull-right" %>
+              </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
