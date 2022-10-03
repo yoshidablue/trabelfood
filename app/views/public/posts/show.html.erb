@@ -47,12 +47,10 @@
             <td><%= @post.food_comments.count %></td>
           </tr>
           <tr>
-            <th></th>
             <% if @post.customer == current_customer %>
               <td><%= link_to "編集", edit_post_path, class: "btn btn-success" %></td>
               <td><%= link_to "削除", @post, method: :delete, class: "btn btn-danger" %></td>
             <% end %>
-            </td>
           </tr>
         </tbody>
       </table>
